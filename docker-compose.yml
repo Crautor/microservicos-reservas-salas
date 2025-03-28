@@ -21,6 +21,7 @@ services:
       - dbUsuario
     networks:
       - netUsuario
+      - netApiGateway
   dbUsuario:
     image: postgres:latest
     restart: always
@@ -56,6 +57,7 @@ services:
       - dbReserva
     networks:
       - netReservas
+      - netApiGateway
   dbReserva:
     image: postgres:latest
     restart: always
@@ -91,6 +93,7 @@ services:
       - dbSala
     networks:
       - netSalas
+      - netApiGateway
   dbSala:
     image: postgres:latest
     restart: always
@@ -114,6 +117,15 @@ services:
       - netUsuario
       - netReservas
       - netSalas
+    
+  web:
+    image: nginx:latest
+    volumes:
+      - ./application/src:/usr/share/nginx/html
+    ports:
+      - "3000:80"
+    networks:
+      - netApiGateway
 
 networks:
   netUsuario:
@@ -121,4 +133,6 @@ networks:
   netReservas:
     driver: bridge
   netSalas:
+    driver: bridge
+  netApiGateway:
     driver: bridge

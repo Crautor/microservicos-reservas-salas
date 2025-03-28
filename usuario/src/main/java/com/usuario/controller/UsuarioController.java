@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -18,6 +19,12 @@ public class UsuarioController {
     public List<Usuario> listar() {
         return service.listar();
     }
+
+    @GetMapping("/{usuarioId}")
+    public Optional<Usuario> getUsuario(@PathVariable Long usuarioId) {
+        return service.getUsuario(usuarioId);
+    }
+    
 
     @PostMapping("/salvar")
     public Usuario salvar(@RequestBody Usuario usuario) {

@@ -1,5 +1,6 @@
 package com.reserva.controller;
 
+import com.reserva.dto.ReservaDTO;
 import com.reserva.model.Reserva;
 import com.reserva.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class ReservasController {
     @GetMapping
     public List<Reserva> listar() {
         return service.listar();  
+    }
+
+    @GetMapping
+    @RequestMapping("/completa/{reservaId}")
+    public ReservaDTO getReservaCompleta(@PathVariable Long reservaId) {
+        return service.getReservaCompleta(reservaId);  
     }
 
     @PostMapping("/salvar")

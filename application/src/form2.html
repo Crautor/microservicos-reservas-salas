@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Formulário 2 - Sala</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+              rel="stylesheet">
+    </head>
+    <body class="container mt-4">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Meu Sistema</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="form1.html">Formulário 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form2.html">Formulário 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form3.html">Formulário 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="list1.html">Listagem 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="list2.html">Listagem 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="list3.html">Listagem 3</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h2>Formulário 2 - Sala</h2>
+        <form id="form2">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome da Sala</label>
+                <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="capacidade" class="form-label">Capacidade</label>
+                <input type="number" class="form-control" id="capacidade" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        <script>
+            document.getElementById("form2").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const data = {
+                    nome: document.getElementById("nome").value,
+                    capacidade: document.getElementById("capacidade").value
+                };
+
+                fetch("http://localhost:8085/salas/salvar", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    }).then(response => response.json())
+                    .then(result => alert("Formulário enviado com sucesso!"))
+                    .catch(error => alert("Erro ao enviar o formulário."));
+            });
+        </script>
+    </body>
+</html>

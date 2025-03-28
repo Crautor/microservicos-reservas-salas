@@ -15,7 +15,12 @@ public class SalaController {
 
     @GetMapping
     public List<Sala> listar() {
-        return service.listar();  
+        return service.listar();
+    }
+    
+    @GetMapping("/{salaId}")
+    public Sala getSala(@PathVariable Long salaId) {
+        return service.getSala(salaId);
     }
 
     @PostMapping("/salvar")

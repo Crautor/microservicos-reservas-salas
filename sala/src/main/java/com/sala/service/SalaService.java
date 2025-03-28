@@ -16,6 +16,11 @@ public class SalaService {
         return repository.findAll();
     }
 
+    public Sala getSala(Long salaId) {
+        return repository.findById(salaId)
+                .orElseThrow(() -> new RuntimeException("Sala não encontrada"));
+    }
+
     public Sala salvar(Sala sala) {
         return repository.save(sala);
     }

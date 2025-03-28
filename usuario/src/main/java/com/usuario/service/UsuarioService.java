@@ -20,6 +20,10 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
+    public Optional<Usuario> getUsuario(Long id) {
+        return repository.findById(id);
+    }
+
     public Optional<Usuario> buscarPorEmail(String email) {
         return repository.findByEmail(email);
     }
