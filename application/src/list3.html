@@ -4,10 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listagem 3 - Reservas</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
   </head>
   <body class="container mt-4">
     <!-- Navbar -->
@@ -42,7 +40,7 @@
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Data e Hora</th>
-          <th scope="col">ID Sala</th>
+          <th scope="col">Sala</th>
           <th scope="col">Usuário</th>
         </tr>
       </thead>
@@ -51,29 +49,29 @@
       </tbody>
     </table>
     <script>
-      window.onload = function () {
-        fetch('http://localhost:8084/reservas')
-          .then((response) => response.json())
-          .then((data) => {
-            const tabela = document.getElementById('tabela-reservas');
-            data.forEach((reserva) => {
-              fetch(`http://localhost:8084/reservas/completa/${reserva.id}`)
-                .then((datacompleta) => datacompleta.json())
-                .then((response) => {
-                  console.log(response);
-                  const row = document.createElement('tr');
-                  row.innerHTML = `
+        window.onload = function() {
+            fetch('http://localhost:8084/reservas')
+                .then((response) => response.json())
+                .then((data) => {
+                    const tabela = document.getElementById('tabela-reservas');
+                    data.forEach((reserva) => {
+                        fetch(`http://localhost:8084/reservas/completa/${reserva.id}`)
+                            .then((datacompleta) => datacompleta.json())
+                            .then((response) => {
+                                console.log(response);
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
                                     <td>${reserva.id}</td>
                                     <td>${reserva.dataHora}</td>
-                                    <td>${reserva.salaId}</td>
+                                    <td>${response.sala.nome}</td>
                                     <td>${response.usuario.nome}</td>
                                 `;
-                  tabela.appendChild(row);
-                });
-            });
-          })
-          .catch((error) => alert('Erro ao carregar dados'));
-      };
+                                tabela.appendChild(row);
+                            });
+                    });
+                })
+                .catch((error) => alert('Erro ao carregar dados'));
+        };
     </script>
   </body>
 </html>
