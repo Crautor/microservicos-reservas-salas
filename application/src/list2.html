@@ -49,7 +49,7 @@
         </table>
         <script>
             window.onload = function() {
-                fetch("http://localhost:8085/salas")
+                fetch("http://localhost:8080/salas")
                     .then(response => response.json())
                     .then(data => {
                         const tabela = document.getElementById("tabela-salas");

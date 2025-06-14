@@ -50,12 +50,12 @@
     </table>
     <script>
         window.onload = function() {
-            fetch('http://localhost:8084/reservas')
+            fetch('http://localhost:8080/reservas')
                 .then((response) => response.json())
                 .then((data) => {
                     const tabela = document.getElementById('tabela-reservas');
                     data.forEach((reserva) => {
-                        fetch(`http://localhost:8084/reservas/completa/${reserva.id}`)
+                        fetch(`http://localhost:8080/reservas/completa/${reserva.id}`)
                             .then((datacompleta) => datacompleta.json())
                             .then((response) => {
                                 console.log(response);
