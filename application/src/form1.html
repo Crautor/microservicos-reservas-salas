@@ -92,8 +92,11 @@
                     cidade: document.getElementById("cidade").value,
                     cep: document.getElementById("cep").value,
                     cpf: document.getElementById("cpf").value,
-                    dataNascimento: document.getElementById("dataNascimento").value
+                    dataNascimento: document.getElementById("dataNascimento").value // yyyy-MM-dd
                 };
+
+                // Debug: mostrar o JSON enviado
+                console.log("Enviando:", data);
 
                 fetch("http://localhost:8080/usuarios/salvar", {
                         method: "POST",
@@ -101,9 +104,17 @@
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify(data)
-                    }).then(response => response.json())
+                    })
+                    .then(async response => {
+                        if (!response.ok) {
+                            const text = await response.text();
+                            alert(`Erro ao enviar o formulário. Status: ${response.status}\nResposta: ${text}`);
+                            throw new Error(text);
+                        }
+                        return response.json();
+                    })
                     .then(result => alert("Formulário enviado com sucesso!"))
-                    .catch(error => alert("Erro ao enviar o formulário."));
+                    .catch(error => console.error("Erro ao enviar o formulário:", error));
             });
         </script>
     </body>

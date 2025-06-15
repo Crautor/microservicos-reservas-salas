@@ -54,10 +54,14 @@ services:
     ports:
       - '8084:8082'
     depends_on:
-      - dbReserva
+      dbReserva:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     networks:
       - netReservas
       - netApiGateway
+
   dbReserva:
     image: postgres:latest
     restart: always
@@ -70,6 +74,11 @@ services:
       - '5434:5432'
     networks:
       - netReservas
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d reservadb']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   sala:
     restart: always
@@ -161,6 +170,11 @@ services:
       - netUsuario
       - netReservas
       - netSalas
+    healthcheck:
+      test: ['CMD', 'rabbitmqctl', 'status']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 networks:
   netUsuario:

@@ -19,6 +19,20 @@ spring:
           uri: http://reserva:8082
           predicates:
             - Path=/reservas/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - 'http://localhost:3000'
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - '*'
+            allowCredentials: true
   rabbitmq:
     host: rabbitmq
     port: 5672

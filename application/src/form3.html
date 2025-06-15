@@ -54,21 +54,26 @@
             document.getElementById("form3").addEventListener("submit", function(event) {
                 event.preventDefault();
 
-                const data = {
-                    dataHora: document.getElementById("dataHora").value,
-                    salaId: document.getElementById("salaId").value,
-                    usuarioId: document.getElementById("usuarioId").value
-                };
+                const dataHora = document.getElementById("dataHora").value;
+                const salaId = document.getElementById("salaId").value;
+                const usuarioId = document.getElementById("usuarioId").value;
 
-                fetch("http://localhost:8080/reservas/criar-via-mensageria", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(data)
-                    }).then(response => response.json())
-                    .then(result => alert("Formulário enviado com sucesso!"))
-                    .catch(error => alert("Erro ao enviar o formulário."));
+                // Monta a URL com os parâmetros
+                const url = `http://localhost:8080/reservas/criar-via-mensageria?usuarioId=${usuarioId}&salaId=${salaId}`;
+
+                fetch(url, {
+                        method: "POST"
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(text);
+                            });
+                        }
+                        return response;
+                    })
+                    .then(() => alert("Formulário enviado com sucesso!"))
+                    .catch(error => alert("Erro ao enviar o formulário: " + error.message));
             });
         </script>
     </body>
